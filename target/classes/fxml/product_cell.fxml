@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="hBox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="256.0" minHeight="-Infinity" minWidth="256.0" prefHeight="48.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="quantity" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="CENTER" />
+      <Label fx:id="price" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="CENTER" />
+      <Label fx:id="name" alignment="CENTER" prefHeight="48.0" prefWidth="265.0" textAlignment="CENTER" />
+   </children>
+</HBox>
