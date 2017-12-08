@@ -9,7 +9,10 @@ import helpers.DatabaseConn;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Product;
+import models.Transaction;
 
 /**
  *
@@ -19,24 +22,58 @@ public class ProductsDao {
 
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> prodList = new ArrayList<>();
-        
         try {
             ResultSet rs = DatabaseConn.conn.createStatement().executeQuery("select * from products;");
             while (rs.next()) {
-                
                 Product p = new Product();
+                p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setPrice(rs.getDouble("price"));
                 p.setQuantity(rs.getInt("quantity"));
+                p.setNotes(rs.getString("notes"));
                 prodList.add(p);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
-        
         return prodList;
+    }
 
+    public boolean insertProduct(Product product) {
+        boolean r = false;
+
+        try {
+            DatabaseConn.conn.createStatement().execute("insert into products(name, price, quantity, notes)"
+                    + " values('" + product.getName() + "', "
+                    + "'" + product.getPrice() + "', "
+                    + "'" + product.getQuantity() + "', "
+                    + "'" + product.getNotes() + "');");
+            r = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return r;
+    }
+    
+    public boolean sellProduct(Transaction transaction){
+    
+     boolean r = false;
+// product_id int, sell_price double, quantity integer, date timestamp
+        try {
+            DatabaseConn.conn.createStatement().execute("insert into transactions(product_id, sell_price, quantity, date)"
+                    + " values('" + transaction.getProduct().getId()+ "', "
+                    + "'" + transaction.getSellingPrice()+ "', "
+                    + "'" + transaction.getQuantity() + "', "
+                    + "'" + transaction.getDate()+ "');");
+            r = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return r;
+    
+    
     }
 
 }

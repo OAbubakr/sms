@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="191.0" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sms.SignInController">
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sms.SignInController">
     <children>
-        <Button fx:id="button" layoutX="117.0" layoutY="122.0" onAction="#handleButtonAction" text="تسجيل الدخول" />
-        <Label fx:id="label" layoutX="126.0" layoutY="158.0" minHeight="16" minWidth="69" />
-      <TextField fx:id="username" layoutX="41.0" layoutY="32.0" prefHeight="25.0" prefWidth="182.0" />
-      <PasswordField fx:id="password" layoutX="40.0" layoutY="75.0" prefHeight="25.0" prefWidth="182.0" />
-      <Label layoutX="231.0" layoutY="79.0" text="كلمة المرور:" />
-      <Label layoutX="231.0" layoutY="36.0" text="اسم المستخدم:" />
+        <Button fx:id="button" layoutX="454.0" layoutY="424.0" onAction="#handleButtonAction" text="تسجيل الدخول" />
+        <Label fx:id="label" layoutX="463.0" layoutY="460.0" minHeight="16" minWidth="69" />
+      <TextField fx:id="username" layoutX="378.0" layoutY="334.0" prefHeight="25.0" prefWidth="182.0" />
+      <PasswordField fx:id="password" layoutX="377.0" layoutY="377.0" prefHeight="25.0" prefWidth="182.0" />
+      <Label layoutX="568.0" layoutY="381.0" text="كلمة المرور:" />
+      <Label layoutX="568.0" layoutY="338.0" text="اسم المستخدم:" />
     </children>
 </AnchorPane>

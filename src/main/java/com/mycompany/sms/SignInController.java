@@ -44,6 +44,7 @@ public class SignInController implements Initializable {
         try {
             DatabaseConn.conn.createStatement().execute("create table if not exists users (id integer primary key autoincrement, username string, password string);");
             DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer);");
+            DatabaseConn.conn.createStatement().execute("create table if not exists transactions (id integer primary key autoincrement, product_id int, sell_price double, quantity integer, date timestamp);");
 
         } catch (SQLException ex) {
             Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,7 +69,6 @@ return true;
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/styles/Styles.css");
             Stage stage = StageHolder.getStag();
-            stage.setTitle("تسجيل دخول");
             stage.setScene(scene);
         } catch (IOException ex) {
             Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sms.AddProductController">
+    <stylesheets>
+        <URL value="@/styles/add_product.css" />
+    </stylesheets>
+   <children>
+      <TextField fx:id="name" alignment="CENTER_RIGHT" layoutX="243.0" layoutY="174.0" prefHeight="31.0" prefWidth="422.0" />
+      <TextField fx:id="price" alignment="CENTER_RIGHT" layoutX="243.0" layoutY="220.0" prefHeight="31.0" prefWidth="422.0" />
+      <TextField fx:id="quantity" alignment="CENTER_RIGHT" layoutX="243.0" layoutY="274.0" prefHeight="31.0" prefWidth="422.0" />
+      <TextArea fx:id="notes" layoutX="243.0" layoutY="322.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="422.0" />
+      <Button fx:id="save" layoutX="417.0" layoutY="548.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="42.0" prefWidth="92.0" text="حفظ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="success" layoutX="402.0" layoutY="527.0" prefHeight="17.0" prefWidth="123.0" text="تم حفظ المنتج بنجاح!" textFill="BLUE" visible="false" />
+      <Label fx:id="failed" alignment="CENTER" layoutX="303.0" layoutY="527.0" prefHeight="17.0" prefWidth="302.0" text="برجاء ادخال كافة البيانات المطلوبة" textAlignment="CENTER" textFill="RED" visible="false" />
+      <Label alignment="CENTER" layoutX="680.0" layoutY="273.0" prefHeight="31.0" prefWidth="92.0" text="الكمية" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="680.0" layoutY="220.0" prefHeight="31.0" prefWidth="92.0" text="السعر" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="676.0" layoutY="174.0" prefHeight="31.0" prefWidth="92.0" text="اسم المنتج" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="680.0" layoutY="322.0" prefHeight="31.0" prefWidth="92.0" text="ملاحظات" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" stroke="WHITE" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label fx:id="history" alignment="CENTER" layoutX="12.0" layoutY="10.0" onMouseClicked="#goToHistory" prefHeight="42.0" prefWidth="52.0" text="جرد" textFill="BLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="addProduct" alignment="CENTER" layoutX="91.0" layoutY="10.0" onMousePressed="#goToAddProduct" prefHeight="42.0" prefWidth="75.0" text="اضافة منتج" textFill="BLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="toMain" alignment="CENTER" layoutX="892.0" layoutY="10.0" onMouseClicked="#goToMain" prefHeight="42.0" prefWidth="92.0" text="الاساسية" textFill="BLUE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+   </children>
+</AnchorPane>
