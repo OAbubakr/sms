@@ -16,7 +16,15 @@ public class Transaction {
     private Product product;
     private int quantity;
     private double sellingPrice;
-    private Date date;
+    private long date;
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 
     public double getSellingPrice() {
         return sellingPrice;
@@ -44,13 +52,6 @@ public class Transaction {
 
  
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
+   
     
 }

@@ -15,6 +15,8 @@ import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,9 +58,13 @@ public class HomeController implements Initializable {
     private Label fixedPrice;
     @FXML
     private Label availableQuantity;
-    
+    @FXML
+    private Label success;
+    @FXML
+    private Label failed;
+
     ObservableList observableList = FXCollections.observableArrayList();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setListView();
@@ -78,8 +84,42 @@ public class HomeController implements Initializable {
         });
         sellPrice.setTextFormatter(doublFormatter);
         sellQuantity.setTextFormatter(intFormatter);
+         sellPrice.lengthProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (sellPrice.getText().length() >=9) {
+
+                        // if it's 11th character then just setText to previous
+                        // one
+                        sellPrice.setText(sellPrice.getText().substring(0, 9));
+                    }
+                }
+            }
+        });
+
+          sellQuantity.lengthProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (sellQuantity.getText().length() >= 6) {
+
+                        // if it's 11th character then just setText to previous
+                        // one
+                        sellQuantity.setText(sellQuantity.getText().substring(0, 6));
+                    }
+                }
+            }
+        });
+
     }
-    
+
     @FXML
     private void goToAddProduct(MouseEvent event) {
         try {
@@ -92,76 +132,127 @@ public class HomeController implements Initializable {
             Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
-    private void goToHistory(ActionEvent event) {
+    private void goToHistory(MouseEvent event) {
+           try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/history.css");
+            Stage stage = StageHolder.getStag();
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     @FXML
-    private void goToMain(ActionEvent event) {
+    private void goToMain(MouseEvent event) {
     }
-    
+
     @FXML
     private void sell(ActionEvent event) {
-        //TODO Validate
-        Transaction transaction = new Transaction();
-        transaction.setProduct((Product) productsList.getValue());
-        transaction.setQuantity(Integer.parseInt( sellQuantity.getText()));
-        transaction.setSellingPrice(Double.parseDouble(sellPrice.getText()));
-        transaction.setDate(new Date());
-        new ProductsDao().sellProduct(transaction);
-        
+        if (validate()) {
+            Transaction transaction = new Transaction();
+            transaction.setProduct((Product) productsList.getValue());
+            transaction.setQuantity(Integer.parseInt(sellQuantity.getText()));
+            transaction.setSellingPrice(Double.parseDouble(sellPrice.getText()));
+            transaction.setDate(new Date().getTime());
+            if (new ProductsDao().sellProduct(transaction)) {
+                success();
+            } else {
+                failed();
+            }
+        } else {
+            failed();
+        }
+
     }
-    
+
     @FXML
     private void selection(ActionEvent event) {
         Product p = (Product) productsList.getValue();
-        fixedPrice.setText(p.getPrice() + "");
-        sellPrice.setText(p.getPrice() + "");
-        availableQuantity.setText(p.getQuantity() + "");
-        sellQuantity.setText("1");
+        if (p != null) {
+            fixedPrice.setText(p.getPrice() + "");
+            sellPrice.setText(p.getPrice() + "");
+            availableQuantity.setText(p.getQuantity() + "");
+            if (p.getQuantity() > 0) {
+                sellQuantity.setText("1");
+            } else {
+                sellQuantity.setText("0");
+            }
+        }
     }
-    
+
+    private boolean validate() {
+        if (productsList.getValue() != null && !sellPrice.getText().trim().isEmpty() && !sellQuantity.getText().trim().isEmpty()) {
+            return Integer.parseInt(sellQuantity.getText()) > 0 &&
+                    Integer.parseInt(sellQuantity.getText()) <= ((Product) productsList.getValue()).getQuantity();
+        } else {
+            return false;
+        }
+    }
+
+    private void success() {
+        failed.setVisible(false);
+        success.setVisible(true);
+        productsList.setValue(null);
+        sellQuantity.setText("");
+        fixedPrice.setText("");
+        sellPrice.setText("");
+        availableQuantity.setText("");
+        setListView();
+    }
+
+    private void failed() {
+        failed.setVisible(true);
+        success.setVisible(false);
+    }
+
     @FXML
     private void deleteCell(ActionEvent event) {
         productsList.getItems().remove(0, productsList.getItems().size());
         System.out.println(observableList);
-        
+
     }
-    
+
     public void setListView() {
-        
+
         observableList.setAll(new ProductsDao().getAllProducts());
-        
+
         productsList.setItems(observableList);
-        
+
         productsList.setCellFactory(
                 new Callback<ListView<Product>, ListCell<Product>>() {
             @Override
             public ListCell<Product> call(ListView<Product> listView) {
-                
+
                 return new ListViewCell();
             }
         });
     }
-    
+
     private static class ListViewCell extends ListCell<Product> {
-        
+
         @Override
         public void updateItem(Product product, boolean empty) {
             super.updateItem(product, empty);
             if (product != null) {
                 Data data = new Data();
                 data.setInfo(product);
-                setGraphic(data.getBox());
+
+//                 Label name = new Label();
+//                 name.setText(product.getName());
+//                  setGraphic(name);
+                    setGraphic(data.getBox());
             } else {
                 setGraphic(null);
             }
         }
     }
-    
+
     private static class Data {
-        
+
         @FXML
         private HBox hBox;
         @FXML
@@ -170,7 +261,7 @@ public class HomeController implements Initializable {
         private Label price;
         @FXML
         private Label quantity;
-        
+
         public Data() {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/product_cell.fxml"));
             fxmlLoader.setController(this);
@@ -180,17 +271,17 @@ public class HomeController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
-        
+
         public void setInfo(Product product) {
             name.setText(product.getName());
             price.setText(product.getPrice() + "");
             quantity.setText(product.getQuantity() + "");
-            
+
         }
-        
+
         public HBox getBox() {
             return hBox;
         }
     }
-    
+
 }

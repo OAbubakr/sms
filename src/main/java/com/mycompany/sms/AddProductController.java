@@ -14,6 +14,8 @@ import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,6 +72,39 @@ public class AddProductController implements Initializable {
         });
         price.setTextFormatter(doublFormatter);
         quantity.setTextFormatter(intFormatter);
+        price.lengthProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (price.getText().length() >=9) {
+
+                        // if it's 11th character then just setText to previous
+                        // one
+                        price.setText(price.getText().substring(0, 9));
+                    }
+                }
+            }
+        });
+
+          quantity.lengthProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (quantity.getText().length() >= 6) {
+
+                        // if it's 11th character then just setText to previous
+                        // one
+                        quantity.setText(quantity.getText().substring(0, 6));
+                    }
+                }
+            }
+        });
 
     }
 
@@ -80,6 +115,15 @@ public class AddProductController implements Initializable {
 
     @FXML
     private void goToHistory(MouseEvent event) {
+         try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/history.css");
+            Stage stage = StageHolder.getStag();
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

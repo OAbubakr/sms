@@ -1,6 +1,7 @@
 package com.mycompany.sms;
 
 import helpers.StageHolder;
+import java.util.Locale;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+//         Locale.setDefault(Locale.JAPAN);
         StageHolder.setStage(stage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/SignIn.fxml"));
         Scene scene = new Scene(root);

@@ -43,7 +43,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <ComboBox fx:id="productsList" layoutX="218.0" layoutY="273.0" nodeOrientation="RIGHT_TO_LEFT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="---------------اختر منتج----------------" visibleRowCount="17" />
+      <ComboBox fx:id="productsList" layoutX="218.0" layoutY="273.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="---------------اختر منتج----------------" visibleRowCount="7" />
       <TextField fx:id="sellPrice" layoutX="405.0" layoutY="334.0" prefHeight="31.0" prefWidth="149.0" />
       <TextField fx:id="sellQuantity" layoutX="405.0" layoutY="382.0" prefHeight="31.0" prefWidth="149.0" />
       <Label alignment="CENTER" layoutX="561.0" layoutY="382.0" prefHeight="31.0" prefWidth="92.0" text="الكمية" textAlignment="CENTER">
@@ -81,5 +81,15 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Label fx:id="success" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="512.0" prefHeight="17.0" prefWidth="226.0" text="تم بيع المنتج بنجاح!" textAlignment="CENTER" textFill="BLUE" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="failed" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="512.0" prefHeight="17.0" prefWidth="226.0" text="برجاء التأكد من صحة البيانات" textAlignment="CENTER" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
