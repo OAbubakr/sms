@@ -75,24 +75,27 @@ public class ProductsDao {
         return r;
     }
 
-//    public ArrayList<Transaction> getTransacrions(long from, long to) {
-//        ArrayList<Transaction> transations = new ArrayList<>();
-//        try {
-//            ResultSet rs = DatabaseConn.conn.createStatement().executeQuery("select * from products ORDER BY name ASC;");
-//            while (rs.next()) {
-//                Transaction t = new Transaction();
-//
-//                p.setId(rs.getInt("id"));
-//                p.setName(rs.getString("name"));
-//                p.setPrice(rs.getDouble("price"));
-//                p.setQuantity(rs.getInt("quantity"));
-//                p.setNotes(rs.getString("notes"));
-//                transations.add(p);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return transations;
-//    }
+    public ArrayList<Transaction> getTransacrions(long from, long to) {
+        ArrayList<Transaction> transations = new ArrayList<>();
+        try {
+            ResultSet rs = DatabaseConn.conn.createStatement().executeQuery("select p.name as name, t.sell_price as price, t.quantity as quantity, t.date as date   from transactions t, products p  where t.product_id = p.id and "
+                    + "date between " + from + " and " + to + " ;");
+
+            while (rs.next()) {
+                Transaction t = new Transaction();
+                Product p = new Product();
+                
+                p.setName(rs.getString("name"));
+                t.setSellingPrice(rs.getDouble("price"));
+                t.setQuantity(rs.getInt("quantity"));
+                t.setDate(rs.getLong("date"));
+                t.setProduct(p);
+                transations.add(t);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return transations;
+    }
 
 }

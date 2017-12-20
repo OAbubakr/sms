@@ -1,3 +1,5 @@
+com\mycompany\sms\HistoryController$3.class
+com\mycompany\sms\HistoryController$Data.class
 com\mycompany\sms\HistoryController$1.class
 com\mycompany\sms\AddProductController$4.class
 com\mycompany\sms\HomeController$3.class
@@ -14,6 +16,8 @@ com\mycompany\sms\AddProductController$3.class
 com\mycompany\sms\HistoryController.class
 com\mycompany\sms\AddProductController$2.class
 com\mycompany\sms\HomeController$2.class
+com\mycompany\sms\EditProductController.class
+com\mycompany\sms\HistoryController$ListViewCell.class
 dao\ProductsDao.class
 models\Product.class
 com\mycompany\sms\AddProductController.class

@@ -84,14 +84,14 @@ public class HomeController implements Initializable {
         });
         sellPrice.setTextFormatter(doublFormatter);
         sellQuantity.setTextFormatter(intFormatter);
-         sellPrice.lengthProperty().addListener(new ChangeListener<Number>() {
+        sellPrice.lengthProperty().addListener(new ChangeListener<Number>() {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
                 if (newValue.intValue() > oldValue.intValue()) {
                     // Check if the new character is greater than LIMIT
-                    if (sellPrice.getText().length() >=9) {
+                    if (sellPrice.getText().length() >= 9) {
 
                         // if it's 11th character then just setText to previous
                         // one
@@ -101,7 +101,7 @@ public class HomeController implements Initializable {
             }
         });
 
-          sellQuantity.lengthProperty().addListener(new ChangeListener<Number>() {
+        sellQuantity.lengthProperty().addListener(new ChangeListener<Number>() {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable,
@@ -132,10 +132,21 @@ public class HomeController implements Initializable {
             Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+  @FXML
+    private void goToEditProduct(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/editProduct.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/editproduct.css");
+            Stage stage = StageHolder.getStag();
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @FXML
     private void goToHistory(MouseEvent event) {
-           try {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/styles/history.css");
@@ -186,8 +197,8 @@ public class HomeController implements Initializable {
 
     private boolean validate() {
         if (productsList.getValue() != null && !sellPrice.getText().trim().isEmpty() && !sellQuantity.getText().trim().isEmpty()) {
-            return Integer.parseInt(sellQuantity.getText()) > 0 &&
-                    Integer.parseInt(sellQuantity.getText()) <= ((Product) productsList.getValue()).getQuantity();
+            return Integer.parseInt(sellQuantity.getText()) > 0
+                    && Integer.parseInt(sellQuantity.getText()) <= ((Product) productsList.getValue()).getQuantity();
         } else {
             return false;
         }
@@ -241,10 +252,15 @@ public class HomeController implements Initializable {
                 Data data = new Data();
                 data.setInfo(product);
 
+                if (product.getQuantity() == 0) {
+                    setDisable(true);
+                } else {
+                    setDisable(false);
+                }
 //                 Label name = new Label();
 //                 name.setText(product.getName());
 //                  setGraphic(name);
-                    setGraphic(data.getBox());
+                setGraphic(data.getBox());
             } else {
                 setGraphic(null);
             }

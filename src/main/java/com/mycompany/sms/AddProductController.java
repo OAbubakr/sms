@@ -79,7 +79,7 @@ public class AddProductController implements Initializable {
                     Number oldValue, Number newValue) {
                 if (newValue.intValue() > oldValue.intValue()) {
                     // Check if the new character is greater than LIMIT
-                    if (price.getText().length() >=9) {
+                    if (price.getText().length() >= 9) {
 
                         // if it's 11th character then just setText to previous
                         // one
@@ -89,7 +89,7 @@ public class AddProductController implements Initializable {
             }
         });
 
-          quantity.lengthProperty().addListener(new ChangeListener<Number>() {
+        quantity.lengthProperty().addListener(new ChangeListener<Number>() {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable,
@@ -115,7 +115,7 @@ public class AddProductController implements Initializable {
 
     @FXML
     private void goToHistory(MouseEvent event) {
-         try {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/styles/history.css");
@@ -132,6 +132,19 @@ public class AddProductController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/styles/home.css");
+            Stage stage = StageHolder.getStag();
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goToEditProduct(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/editProduct.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/editproduct.css");
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sms.EditProductController">
+    <stylesheets>
+        <URL value="@/styles/editproduct.css"/>
+    </stylesheets>
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" layoutX="6.0" stroke="WHITE" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Label fx:id="history" alignment="CENTER" layoutX="12.0" layoutY="10.0" onMouseClicked="#goToHistory" prefHeight="42.0" prefWidth="52.0" text="جرد" textFill="BLUE">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Label>
+        <Label fx:id="addProduct" alignment="CENTER" layoutX="166.0" layoutY="10.0" onMousePressed="#goToAddProduct" prefHeight="42.0" prefWidth="75.0" text="اضافة منتج" textFill="BLUE">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Label>
+        <Label fx:id="toMain" alignment="CENTER" layoutX="894.0" layoutY="10.0" onMouseClicked="#goToMain" prefHeight="42.0" prefWidth="92.0" text="الاساسية" textFill="BLUE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Label>
+        <Label alignment="CENTER" layoutX="76.0" layoutY="10.0" onMousePressed="#goToEditProduct" prefHeight="42.0" prefWidth="75.0" text="تعديل منتج" textFill="BLUE">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Label>
+    </children>
+</AnchorPane>

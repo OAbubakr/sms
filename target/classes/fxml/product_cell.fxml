@@ -7,6 +7,6 @@
    <children>
       <Label fx:id="quantity" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
       <Label fx:id="price" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
-      <Label fx:id="name" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="48.0" prefWidth="265.0" textAlignment="RIGHT" />
+      <Label fx:id="name" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="200.0" textAlignment="RIGHT" />
    </children>
 </HBox>

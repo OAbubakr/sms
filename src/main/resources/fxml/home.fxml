@@ -27,7 +27,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label fx:id="addProduct" alignment="CENTER" layoutX="91.0" layoutY="10.0" onMousePressed="#goToAddProduct" prefHeight="42.0" prefWidth="75.0" text="اضافة منتج" textFill="BLUE">
+      <Label fx:id="addProduct" alignment="CENTER" layoutX="166.0" layoutY="10.0" onMousePressed="#goToAddProduct" prefHeight="42.0" prefWidth="75.0" text="اضافة منتج" textFill="BLUE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -90,6 +90,14 @@
          <font>
             <Font size="14.0" />
          </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="76.0" layoutY="10.0" onMousePressed="#goToEditProduct" prefHeight="42.0" prefWidth="75.0" text="تعديل منتج" textFill="BLUE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Label>
    </children>
 </AnchorPane>
