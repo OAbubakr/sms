@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+    <user>
+        <username>
+            admin
+        </username>
+        <password>
+            admin
+        </password>
+    </user>
+
+    <database_path>
+        jdbc:sqlite:C:\Users\omari\Documents\NetBeansProjects\SMS\SMS.sqlite
+    </database_path>
+</Config>

@@ -16,16 +16,19 @@ import java.util.logging.Logger;
  * @author omari
  */
 public class DatabaseConn {
-    private static final String URL = "jdbc:sqlite:C:\\Users\\omari\\Documents\\NetBeansProjects\\SMS\\SMS.sqlite";
-    
-    public static Connection conn ;
-    static{
+
+    static String URL;
+
+    public static Connection conn;
+
+    static public void setUrl(String url) {
+
+        URL = url;
         try {
-            conn =  DriverManager.getConnection(URL);
+            conn = DriverManager.getConnection(URL);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
-    
+
 }

@@ -112,6 +112,7 @@ public class HistoryController implements Initializable {
 
         from.setValue(LocalDate.now());
         to.setValue(LocalDate.now().plusDays(1));
+        search(new ActionEvent());
     }
 
     @FXML
@@ -143,7 +144,7 @@ public class HistoryController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -156,7 +157,7 @@ public class HistoryController implements Initializable {
 //            Stage stage = StageHolder.getStag();
 //            stage.setScene(scene);
 //        } catch (IOException ex) {
-//            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(HistoryController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
     }
 
@@ -169,7 +170,7 @@ public class HistoryController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -182,7 +183,7 @@ public class HistoryController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HistoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -247,7 +248,7 @@ public class HistoryController implements Initializable {
             sellPrice.setText(transaction.getSellingPrice() + "");
             quantity.setText(transaction.getQuantity() + "");
             Date d = new Date(transaction.getDate());
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy h:mm a");
             String reportDate = df.format(d);
             date.setText(reportDate);
         }

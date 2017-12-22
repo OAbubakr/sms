@@ -122,7 +122,7 @@ public class AddProductController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -135,7 +135,7 @@ public class AddProductController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -148,7 +148,7 @@ public class AddProductController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

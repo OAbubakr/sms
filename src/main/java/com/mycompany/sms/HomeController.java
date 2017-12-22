@@ -6,10 +6,15 @@ package com.mycompany.sms;
  * and open the template in the editor.
  */
 import dao.ProductsDao;
+import helpers.DatabaseConn;
 import helpers.StageHolder;
+import helpers.UserHolder;
+import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
@@ -23,18 +28,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 import models.Product;
 import models.Transaction;
 
@@ -57,6 +70,8 @@ public class HomeController implements Initializable {
     @FXML
     private Label fixedPrice;
     @FXML
+    private TextArea notes;
+    @FXML
     private Label availableQuantity;
     @FXML
     private Label success;
@@ -67,7 +82,9 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        createTables();
         setListView();
+
         final Pattern doublePattern = Pattern.compile("\\d*|\\d+\\.\\d*");
         final Pattern intPattern = Pattern.compile("\\d*");
         TextFormatter doublFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
@@ -122,38 +139,46 @@ public class HomeController implements Initializable {
 
     @FXML
     private void goToAddProduct(MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/add_product.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/add_product.css");
-            Stage stage = StageHolder.getStag();
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        if (authenticate()) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/add_product.fxml"));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/add_product.css");
+                Stage stage = StageHolder.getStag();
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-  @FXML
+
+    @FXML
     private void goToEditProduct(MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/editProduct.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/editproduct.css");
-            Stage stage = StageHolder.getStag();
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        if (authenticate()) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/editProduct.fxml"));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/editproduct.css");
+                Stage stage = StageHolder.getStag();
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
+
     @FXML
     private void goToHistory(MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/history.css");
-            Stage stage = StageHolder.getStag();
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+        if (authenticate()) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/history.css");
+                Stage stage = StageHolder.getStag();
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -187,6 +212,7 @@ public class HomeController implements Initializable {
             fixedPrice.setText(p.getPrice() + "");
             sellPrice.setText(p.getPrice() + "");
             availableQuantity.setText(p.getQuantity() + "");
+            notes.setText(p.getNotes());
             if (p.getQuantity() > 0) {
                 sellQuantity.setText("1");
             } else {
@@ -212,19 +238,13 @@ public class HomeController implements Initializable {
         fixedPrice.setText("");
         sellPrice.setText("");
         availableQuantity.setText("");
+        notes.setText("");
         setListView();
     }
 
     private void failed() {
         failed.setVisible(true);
         success.setVisible(false);
-    }
-
-    @FXML
-    private void deleteCell(ActionEvent event) {
-        productsList.getItems().remove(0, productsList.getItems().size());
-        System.out.println(observableList);
-
     }
 
     public void setListView() {
@@ -241,6 +261,16 @@ public class HomeController implements Initializable {
                 return new ListViewCell();
             }
         });
+    }
+
+    private void createTables() {
+        try {
+            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer, active BOOLEAN default true);");
+            DatabaseConn.conn.createStatement().execute("create table if not exists transactions (id integer primary key autoincrement, product_id int, sell_price double, quantity integer, date integer);");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private static class ListViewCell extends ListCell<Product> {
@@ -297,6 +327,49 @@ public class HomeController implements Initializable {
 
         public HBox getBox() {
             return hBox;
+        }
+    }
+
+    private boolean authenticate() {
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+
+        final ButtonType loginButtonType = new ButtonType("دخول", ButtonData.OK_DONE);
+        ButtonType cancelButtonType = new ButtonType("إلغاء", ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, cancelButtonType);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        final TextField username = new TextField();
+        username.setPromptText("اسم المستخدم");
+        final PasswordField password = new PasswordField();
+        password.setPromptText("كلمة السر");
+
+        grid.add(new Label("اسم المستخدم"), 1, 0);
+        grid.add(username, 0, 0);
+        grid.add(new Label("اسم المستخدم"), 1, 1);
+        grid.add(password, 0, 1);
+
+        dialog.getDialogPane().setContent(grid);
+
+// Convert the result to a username-password-pair when the login button is clicked.
+        dialog.setResultConverter(new Callback<ButtonType, Pair<String, String>>() {
+            @Override
+            public Pair<String, String> call(ButtonType dialogButton) {
+                if (dialogButton == loginButtonType) {
+                    return new Pair<>(username.getText(), password.getText());
+                }
+                return null;
+            }
+        });
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            return result.get().getKey().equals(UserHolder.getUserName()) && result.get().getValue().equals(UserHolder.getPassword());
+        } else {
+            return false;
         }
     }
 

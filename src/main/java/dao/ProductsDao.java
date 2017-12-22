@@ -23,7 +23,7 @@ public class ProductsDao {
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> prodList = new ArrayList<>();
         try {
-            ResultSet rs = DatabaseConn.conn.createStatement().executeQuery("select * from products ORDER BY name ASC;");
+            ResultSet rs = DatabaseConn.conn.createStatement().executeQuery("select * from products where active = 'true' ORDER BY name ASC;");
             while (rs.next()) {
                 Product p = new Product();
                 p.setId(rs.getInt("id"));
@@ -84,7 +84,7 @@ public class ProductsDao {
             while (rs.next()) {
                 Transaction t = new Transaction();
                 Product p = new Product();
-                
+
                 p.setName(rs.getString("name"));
                 t.setSellingPrice(rs.getDouble("price"));
                 t.setQuantity(rs.getInt("quantity"));
@@ -102,8 +102,8 @@ public class ProductsDao {
         boolean r = false;
         try {
             DatabaseConn.conn.createStatement().execute("update products set"
-                    + " name = '" + product.getName() +"',"
-                    + " price = " + product.getPrice() +","
+                    + " name = '" + product.getName() + "',"
+                    + " price = " + product.getPrice() + ","
                     + " quantity = " + product.getQuantity() + ", "
                     + " notes = '" + product.getNotes() + "'"
                     + " where id = " + product.getId());
@@ -113,7 +113,21 @@ public class ProductsDao {
         }
 
         return r;
-        
+
+    }
+
+    public boolean removeProduct(Product p) {
+        boolean r = false;
+        try {
+            DatabaseConn.conn.createStatement().execute("update products set"
+                    + " active = 'false'" 
+                    + " where id = " + p.getId());
+            r = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return r;
     }
 
 }

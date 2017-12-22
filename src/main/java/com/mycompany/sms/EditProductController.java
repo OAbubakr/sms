@@ -9,6 +9,7 @@ import dao.ProductsDao;
 import helpers.StageHolder;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
@@ -24,6 +25,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -64,9 +68,9 @@ public class EditProductController implements Initializable {
     private Label success_edit;
     @FXML
     private Label success_remove;
-    
+
     Product p;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setListView();
@@ -87,7 +91,7 @@ public class EditProductController implements Initializable {
         price.setTextFormatter(doublFormatter);
         quantity.setTextFormatter(intFormatter);
         price.lengthProperty().addListener(new ChangeListener<Number>() {
-            
+
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
@@ -102,9 +106,9 @@ public class EditProductController implements Initializable {
                 }
             }
         });
-        
+
         quantity.lengthProperty().addListener(new ChangeListener<Number>() {
-            
+
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
@@ -119,9 +123,9 @@ public class EditProductController implements Initializable {
                 }
             }
         });
-        
+
     }
-    
+
     @FXML
     private void goToAddProduct(MouseEvent event) {
         try {
@@ -131,10 +135,10 @@ public class EditProductController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void goToEditProduct(MouseEvent event) {
 //        try {
@@ -144,10 +148,10 @@ public class EditProductController implements Initializable {
 //            Stage stage = StageHolder.getStag();
 //            stage.setScene(scene);
 //        } catch (IOException ex) {
-//            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(EditProductController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
     }
-    
+
     @FXML
     private void goToHistory(MouseEvent event) {
         try {
@@ -157,10 +161,10 @@ public class EditProductController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void goToMain(MouseEvent event) {
         try {
@@ -170,10 +174,10 @@ public class EditProductController implements Initializable {
             Stage stage = StageHolder.getStag();
             stage.setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void selection(ActionEvent event) {
         p = (Product) productsList.getValue();
@@ -184,13 +188,13 @@ public class EditProductController implements Initializable {
             notes.setText(p.getNotes());
         }
     }
-    
+
     @FXML
     private void edit(ActionEvent event) {
         if (!validate()) {
             failed();
         } else {
-           
+
             p.setName(name.getText());
             p.setPrice(Double.parseDouble(price.getText()));
             p.setQuantity(Integer.parseInt(quantity.getText()));
@@ -201,77 +205,94 @@ public class EditProductController implements Initializable {
             } else {
                 failed();
             }
-            
+
         }
-        
+
     }
-    
-    private void success_edit() {
+
+    private void success() {
         setListView();
         productsList.setValue(null);
         p = null;
         failed.setVisible(false);
-        success_edit.setVisible(true);
-        success_remove.setVisible(false);
         name.setText("");
         price.setText("");
         quantity.setText("");
         notes.setText("");
+
     }
-    
+
+    private void success_edit() {
+        success_edit.setVisible(true);
+        success_remove.setVisible(false);
+        success();
+    }
+
+    private void success_remove() {
+        success_edit.setVisible(false);
+        success_remove.setVisible(true);
+        success();
+    }
+
     private void failed() {
         failed.setVisible(true);
         success_edit.setVisible(false);
         success_remove.setVisible(false);
     }
-    
+
     @FXML
     private void remove(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("تأكيد مسح المنتج");
+        alert.setHeaderText("هل  تريد حقا مسح هذا المنتج؟");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            boolean r = new ProductsDao().removeProduct(p);
+            if (r) {
+                success_remove();
+            } else {
+                failed();
+            }
+        } 
     }
-    
+
     private boolean validate() {
         return (!name.getText().trim().isEmpty() && !price.getText().trim().isEmpty() && !quantity.getText().trim().isEmpty());
     }
-    
+
     public void setListView() {
-        
+
         observableList.setAll(new ProductsDao().getAllProducts());
-        
+
         productsList.setItems(observableList);
-        
+
         productsList.setCellFactory(
                 new Callback<ListView<Product>, ListCell<Product>>() {
             @Override
             public ListCell<Product> call(ListView<Product> listView) {
-                
+
                 return new ListViewCell();
             }
         });
     }
-    
+
     private static class ListViewCell extends ListCell<Product> {
-        
+
         @Override
         public void updateItem(Product product, boolean empty) {
             super.updateItem(product, empty);
             if (product != null) {
                 Data data = new Data();
                 data.setInfo(product);
-                
-                if (product.getQuantity() == 0) {
-                    setDisable(true);
-                } else {
-                    setDisable(false);
-                }
                 setGraphic(data.getBox());
             } else {
                 setGraphic(null);
             }
         }
     }
-    
+
     private static class Data {
-        
+
         @FXML
         private HBox hBox;
         @FXML
@@ -280,7 +301,7 @@ public class EditProductController implements Initializable {
         private Label price;
         @FXML
         private Label quantity;
-        
+
         public Data() {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/product_cell.fxml"));
             fxmlLoader.setController(this);
@@ -290,17 +311,17 @@ public class EditProductController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
-        
+
         public void setInfo(Product product) {
             name.setText(product.getName());
             price.setText(product.getPrice() + "");
             quantity.setText(product.getQuantity() + "");
-            
+
         }
-        
+
         public HBox getBox() {
             return hBox;
         }
     }
-    
+
 }
