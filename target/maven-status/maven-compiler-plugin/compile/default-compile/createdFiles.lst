@@ -1,13 +1,18 @@
 com\mycompany\sms\HistoryController$3.class
 com\mycompany\sms\HistoryController$Data.class
 com\mycompany\sms\HistoryController$1.class
+com\mycompany\sms\EditProductController$ListViewCell.class
+com\mycompany\sms\EditProductController$5.class
 com\mycompany\sms\AddProductController$4.class
 com\mycompany\sms\HomeController$3.class
+com\mycompany\sms\EditProductController$1.class
 helpers\DatabaseConn.class
 com\mycompany\sms\MainApp.class
 com\mycompany\sms\HomeController$1.class
 com\mycompany\sms\AddProductController$1.class
+com\mycompany\sms\EditProductController$3.class
 models\Transaction.class
+com\mycompany\sms\EditProductController$4.class
 com\mycompany\sms\HistoryController$2.class
 com\mycompany\sms\HomeController$4.class
 com\mycompany\sms\HomeController$ListViewCell.class
@@ -21,6 +26,8 @@ com\mycompany\sms\HistoryController$ListViewCell.class
 dao\ProductsDao.class
 models\Product.class
 com\mycompany\sms\AddProductController.class
+com\mycompany\sms\EditProductController$2.class
+com\mycompany\sms\EditProductController$Data.class
 com\mycompany\sms\HomeController$Data.class
 helpers\StageHolder.class
 com\mycompany\sms\HomeController$5.class

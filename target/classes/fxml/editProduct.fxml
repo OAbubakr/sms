@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sms.EditProductController">
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.sms.EditProductController">
     <stylesheets>
-        <URL value="@/styles/editproduct.css"/>
+        <URL value="@/styles/editproduct.css" />
     </stylesheets>
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" layoutX="6.0" stroke="WHITE" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -48,5 +49,55 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
+        <ComboBox fx:id="productsList" layoutX="274.0" layoutY="126.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="---------------اختر منتج----------------" visibleRowCount="7" />
+      <TextField fx:id="price" layoutX="461.0" layoutY="235.0" prefHeight="31.0" prefWidth="149.0" />
+      <TextField fx:id="quantity" layoutX="461.0" layoutY="283.0" prefHeight="31.0" prefWidth="149.0" />
+      <Label layoutX="617.0" layoutY="283.0" prefHeight="31.0" prefWidth="121.0" text="الكمية المتاحة" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="617.0" layoutY="230.0" prefHeight="31.0" prefWidth="92.0" text="السعر" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="611.0" layoutY="523.0" mnemonicParsing="false" onAction="#edit" prefHeight="51.0" prefWidth="99.0" text="تعديل">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="success_edit" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="589.0" prefHeight="17.0" prefWidth="226.0" text="تم تعديل المنتج بنجاح!" textAlignment="CENTER" textFill="BLUE" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="failed" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="589.0" prefHeight="17.0" prefWidth="226.0" text="برجاء التأكد من صحة البيانات" textAlignment="CENTER" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="name" layoutX="461.0" layoutY="190.0" prefHeight="31.0" prefWidth="149.0" />
+      <Label layoutX="617.0" layoutY="185.0" prefHeight="31.0" prefWidth="92.0" text="اسم المنتج " textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="338.0" layoutY="523.0" mnemonicParsing="false" onAction="#remove" prefHeight="51.0" prefWidth="99.0" text="مسح">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="success_remove" alignment="CENTER" contentDisplay="CENTER" layoutX="414.0" layoutY="588.0" prefHeight="17.0" prefWidth="226.0" text="تم مسح المنتج بنجاح!" textAlignment="CENTER" textFill="BLUE" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="617.0" layoutY="328.0" prefHeight="31.0" prefWidth="121.0" text="ملاحظات" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="notes" layoutX="265.0" layoutY="337.0" prefHeight="158.0" prefWidth="342.0" />
     </children>
 </AnchorPane>

@@ -35,7 +35,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import models.Product;
 import models.Transaction;
 
 /**
@@ -112,7 +111,7 @@ public class HistoryController implements Initializable {
         });
 
         from.setValue(LocalDate.now());
-        to.setValue(LocalDate.now());
+        to.setValue(LocalDate.now().plusDays(1));
     }
 
     @FXML

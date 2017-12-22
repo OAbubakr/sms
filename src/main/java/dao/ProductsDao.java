@@ -98,4 +98,22 @@ public class ProductsDao {
         return transations;
     }
 
+    public boolean editProduct(Product product) {
+        boolean r = false;
+        try {
+            DatabaseConn.conn.createStatement().execute("update products set"
+                    + " name = '" + product.getName() +"',"
+                    + " price = " + product.getPrice() +","
+                    + " quantity = " + product.getQuantity() + ", "
+                    + " notes = '" + product.getNotes() + "'"
+                    + " where id = " + product.getId());
+            r = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return r;
+        
+    }
+
 }
