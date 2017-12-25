@@ -84,6 +84,7 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         createTables();
         setListView();
+        disableInputs();
 
         final Pattern doublePattern = Pattern.compile("\\d*|\\d+\\.\\d*");
         final Pattern intPattern = Pattern.compile("\\d*");
@@ -209,6 +210,7 @@ public class HomeController implements Initializable {
     private void selection(ActionEvent event) {
         Product p = (Product) productsList.getValue();
         if (p != null) {
+            enableInputs();
             fixedPrice.setText(p.getPrice() + "");
             sellPrice.setText(p.getPrice() + "");
             availableQuantity.setText(p.getQuantity() + "");
@@ -240,6 +242,17 @@ public class HomeController implements Initializable {
         availableQuantity.setText("");
         notes.setText("");
         setListView();
+        disableInputs();
+    }
+
+    private void enableInputs() {
+        sellQuantity.setEditable(true);
+        sellPrice.setEditable(true);
+    }
+
+    private void disableInputs() {
+        sellQuantity.setEditable(false);
+        sellPrice.setEditable(false);
     }
 
     private void failed() {
@@ -265,7 +278,7 @@ public class HomeController implements Initializable {
 
     private void createTables() {
         try {
-            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer, active BOOLEAN default true);");
+            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer, notes string,d active BOOLEAN default true);");
             DatabaseConn.conn.createStatement().execute("create table if not exists transactions (id integer primary key autoincrement, product_id int, sell_price double, quantity integer, date integer);");
 
         } catch (SQLException ex) {

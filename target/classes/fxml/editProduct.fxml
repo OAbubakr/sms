@@ -49,9 +49,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
-        <ComboBox fx:id="productsList" layoutX="274.0" layoutY="126.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="اسم المنتج                                                  السعر       الكمية المتاحة" visibleRowCount="7" />
-      <TextField fx:id="price" layoutX="461.0" layoutY="235.0" prefHeight="31.0" prefWidth="149.0" />
-      <TextField fx:id="quantity" layoutX="461.0" layoutY="283.0" prefHeight="31.0" prefWidth="149.0" />
+        <ComboBox fx:id="productsList" layoutX="255.0" layoutY="126.0" nodeOrientation="RIGHT_TO_LEFT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="اسم المنتج                                                  السعر       الكمية المتاحة" visibleRowCount="7" />
+      <TextField fx:id="price" layoutX="453.0" layoutY="235.0" prefHeight="31.0" prefWidth="149.0" />
+      <TextField fx:id="quantity" layoutX="453.0" layoutY="283.0" prefHeight="31.0" prefWidth="149.0" />
       <Label layoutX="617.0" layoutY="283.0" prefHeight="31.0" prefWidth="121.0" text="الكمية المتاحة" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
@@ -62,7 +62,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="611.0" layoutY="523.0" mnemonicParsing="false" onAction="#edit" prefHeight="51.0" prefWidth="99.0" text="تعديل">
+      <Button layoutX="601.0" layoutY="526.0" mnemonicParsing="false" onAction="#edit" prefHeight="51.0" prefWidth="99.0" text="تعديل">
          <font>
             <Font size="18.0" />
          </font>
@@ -77,13 +77,13 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="name" layoutX="461.0" layoutY="190.0" prefHeight="31.0" prefWidth="149.0" />
+      <TextField fx:id="name" layoutX="453.0" layoutY="190.0" prefHeight="31.0" prefWidth="149.0" />
       <Label layoutX="617.0" layoutY="185.0" prefHeight="31.0" prefWidth="92.0" text="اسم المنتج " textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="338.0" layoutY="523.0" mnemonicParsing="false" onAction="#remove" prefHeight="51.0" prefWidth="99.0" text="مسح">
+      <Button layoutX="301.0" layoutY="526.0" mnemonicParsing="false" onAction="#remove" prefHeight="51.0" prefWidth="99.0" text="مسح">
          <font>
             <Font size="18.0" />
          </font>
@@ -98,6 +98,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextArea fx:id="notes" layoutX="265.0" layoutY="337.0" prefHeight="158.0" prefWidth="342.0" />
+      <TextArea fx:id="notes" layoutX="257.0" layoutY="337.0" prefHeight="158.0" prefWidth="342.0" />
+      <Label layoutX="657.0" layoutY="129.0" prefHeight="31.0" prefWidth="92.0" text="اختر منتج:" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

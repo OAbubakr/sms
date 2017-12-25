@@ -111,7 +111,7 @@ public class HistoryController implements Initializable {
         });
 
         from.setValue(LocalDate.now());
-        to.setValue(LocalDate.now().plusDays(1));
+        to.setValue(LocalDate.now());
         search(new ActionEvent());
     }
 
@@ -128,6 +128,9 @@ public class HistoryController implements Initializable {
             cal.set(Calendar.DAY_OF_MONTH, to.getValue().getDayOfMonth());
             cal.set(Calendar.MONTH, to.getValue().getMonthValue() - 1);
             cal.set(Calendar.YEAR, to.getValue().getYear());
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            cal.set(Calendar.SECOND, 59);
             long toLong = cal.getTimeInMillis();
             System.out.println(fromLong);
             System.out.println(toLong);
@@ -232,6 +235,8 @@ public class HistoryController implements Initializable {
         private Label quantity;
         @FXML
         private Label date;
+        @FXML
+        private Label total;
 
         public Data() {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/history_cell.fxml"));
@@ -247,6 +252,7 @@ public class HistoryController implements Initializable {
             name.setText(transaction.getProduct().getName());
             sellPrice.setText(transaction.getSellingPrice() + "");
             quantity.setText(transaction.getQuantity() + "");
+            total.setText(transaction.getSellingPrice() * transaction.getQuantity() + "" );
             Date d = new Date(transaction.getDate());
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy h:mm a");
             String reportDate = df.format(d);

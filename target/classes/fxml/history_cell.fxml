@@ -5,9 +5,10 @@
 
 <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="date" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="300.0" text="Label" />
-      <Label fx:id="quantity" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="150.0" text="Label" />
-      <Label fx:id="sellPrice" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="150.0" text="Label" />
-      <Label fx:id="name" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="300.0" text="Label" />
+      <Label fx:id="date" alignment="CENTER" prefHeight="30.0" prefWidth="300.0" text="Label" />
+      <Label fx:id="total" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="Label" />
+      <Label fx:id="quantity" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="Label" />
+      <Label fx:id="sellPrice" alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="Label" />
+      <Label fx:id="name" alignment="CENTER" prefHeight="30.0" prefWidth="300.0" text="Label" />
    </children>
 </HBox>

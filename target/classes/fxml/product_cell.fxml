@@ -5,8 +5,8 @@
 
 <HBox fx:id="hBox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="256.0" minHeight="-Infinity" minWidth="256.0" prefHeight="37.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="quantity" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
-      <Label fx:id="price" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
       <Label fx:id="name" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="200.0" textAlignment="RIGHT" />
+      <Label fx:id="price" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
+      <Label fx:id="quantity" alignment="CENTER" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
    </children>
 </HBox>

@@ -74,6 +74,7 @@ public class EditProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setListView();
+        disableInputs();
         final Pattern doublePattern = Pattern.compile("\\d*|\\d+\\.\\d*");
         final Pattern intPattern = Pattern.compile("\\d*");
         TextFormatter doublFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
@@ -141,15 +142,6 @@ public class EditProductController implements Initializable {
 
     @FXML
     private void goToEditProduct(MouseEvent event) {
-//        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/editProduct.fxml"));
-//            Scene scene = new Scene(root);
-//            scene.getStylesheets().add("/styles/editproduct.css");
-//            Stage stage = StageHolder.getStag();
-//            stage.setScene(scene);
-//        } catch (IOException ex) {
-//            Logger.getLogger(EditProductController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     @FXML
@@ -182,6 +174,7 @@ public class EditProductController implements Initializable {
     private void selection(ActionEvent event) {
         p = (Product) productsList.getValue();
         if (p != null) {
+            enableInputs();
             name.setText(p.getName());
             price.setText(p.getPrice() + "");
             quantity.setText(p.getQuantity() + "");
@@ -226,12 +219,14 @@ public class EditProductController implements Initializable {
         success_edit.setVisible(true);
         success_remove.setVisible(false);
         success();
+        disableInputs();
     }
 
     private void success_remove() {
         success_edit.setVisible(false);
         success_remove.setVisible(true);
         success();
+        disableInputs();
     }
 
     private void failed() {
@@ -253,7 +248,21 @@ public class EditProductController implements Initializable {
             } else {
                 failed();
             }
-        } 
+        }
+    }
+
+    private void enableInputs() {
+        name.setEditable(true);
+        quantity.setEditable(true);
+        price.setEditable(true);
+        notes.setEditable(true);
+    }
+
+    private void disableInputs() {
+        name.setEditable(false);
+        quantity.setEditable(false);
+        price.setEditable(false);
+        notes.setEditable(false);
     }
 
     private boolean validate() {
