@@ -98,11 +98,11 @@ public class EditProductController implements Initializable {
                     Number oldValue, Number newValue) {
                 if (newValue.intValue() > oldValue.intValue()) {
                     // Check if the new character is greater than LIMIT
-                    if (price.getText().length() >= 9) {
+                    if (price.getText().length() >= 20) {
 
                         // if it's 11th character then just setText to previous
                         // one
-                        price.setText(price.getText().substring(0, 9));
+                        price.setText(price.getText().substring(0, 20));
                     }
                 }
             }

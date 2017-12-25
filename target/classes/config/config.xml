@@ -10,6 +10,6 @@
     </user>
 
     <database_path>
-        jdbc:sqlite:C:\Users\omari\Documents\NetBeansProjects\SMS\SMS.sqlite
+        jdbc:sqlite:C:\Users\omari\Documents\NetBeansProjects\SMS\SMS2.sqlite
     </database_path>
 </Config>

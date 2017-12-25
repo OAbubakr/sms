@@ -49,7 +49,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
-        <ComboBox fx:id="productsList" layoutX="255.0" layoutY="126.0" nodeOrientation="RIGHT_TO_LEFT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="اسم المنتج                                                  السعر       الكمية المتاحة" visibleRowCount="7" />
+        <ComboBox fx:id="productsList" layoutX="255.0" layoutY="126.0" nodeOrientation="RIGHT_TO_LEFT" onAction="#selection" prefHeight="42.0" prefWidth="389.0" promptText="اسم المنتج                                                                  السعر    الكمية" visibleRowCount="7" />
       <TextField fx:id="price" layoutX="453.0" layoutY="235.0" prefHeight="31.0" prefWidth="149.0" />
       <TextField fx:id="quantity" layoutX="453.0" layoutY="283.0" prefHeight="31.0" prefWidth="149.0" />
       <Label layoutX="617.0" layoutY="283.0" prefHeight="31.0" prefWidth="121.0" text="الكمية المتاحة" textAlignment="CENTER">

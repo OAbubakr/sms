@@ -278,7 +278,7 @@ public class HomeController implements Initializable {
 
     private void createTables() {
         try {
-            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer, notes string,d active BOOLEAN default true);");
+            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer, notes string, active BOOLEAN default true);");
             DatabaseConn.conn.createStatement().execute("create table if not exists transactions (id integer primary key autoincrement, product_id int, sell_price double, quantity integer, date integer);");
 
         } catch (SQLException ex) {
