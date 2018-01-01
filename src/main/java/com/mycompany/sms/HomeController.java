@@ -9,7 +9,6 @@ import dao.ProductsDao;
 import helpers.DatabaseConn;
 import helpers.StageHolder;
 import helpers.UserHolder;
-import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -20,15 +19,12 @@ import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -86,8 +82,8 @@ public class HomeController implements Initializable {
         setListView();
         disableInputs();
 
-        final Pattern doublePattern = Pattern.compile("\\d*|\\d+\\.\\d*");
-        final Pattern intPattern = Pattern.compile("\\d*");
+        final Pattern doublePattern = Pattern.compile("\\d{0,6}|\\d{0,6}\\.\\d{0,2}");
+        final Pattern intPattern = Pattern.compile("\\d{0,6}");
         TextFormatter doublFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
@@ -100,42 +96,9 @@ public class HomeController implements Initializable {
                 return intPattern.matcher(change.getControlNewText()).matches() ? change : null;
             }
         });
+        
         sellPrice.setTextFormatter(doublFormatter);
         sellQuantity.setTextFormatter(intFormatter);
-        sellPrice.lengthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (sellPrice.getText().length() >= 9) {
-
-                        // if it's 11th character then just setText to previous
-                        // one
-                        sellPrice.setText(sellPrice.getText().substring(0, 9));
-                    }
-                }
-            }
-        });
-
-        sellQuantity.lengthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (sellQuantity.getText().length() >= 6) {
-
-                        // if it's 11th character then just setText to previous
-                        // one
-                        sellQuantity.setText(sellQuantity.getText().substring(0, 6));
-                    }
-                }
-            }
-        });
-
     }
 
     @FXML
@@ -211,8 +174,8 @@ public class HomeController implements Initializable {
         Product p = (Product) productsList.getValue();
         if (p != null) {
             enableInputs();
+            sellPrice.setText(p.getFinalPrice() + "");
             fixedPrice.setText(p.getPrice() + "");
-            sellPrice.setText(p.getPrice() + "");
             availableQuantity.setText(p.getQuantity() + "");
             notes.setText(p.getNotes());
             if (p.getQuantity() > 0) {
@@ -278,7 +241,7 @@ public class HomeController implements Initializable {
 
     private void createTables() {
         try {
-            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, quantity integer, notes string, active BOOLEAN default true);");
+            DatabaseConn.conn.createStatement().execute("create table if not exists products (id integer primary key autoincrement, name string, price double, final_price double, quantity integer, notes string, active BOOLEAN default true);");
             DatabaseConn.conn.createStatement().execute("create table if not exists transactions (id integer primary key autoincrement, product_id int, sell_price double, quantity integer, date integer);");
 
         } catch (SQLException ex) {
@@ -300,9 +263,6 @@ public class HomeController implements Initializable {
                 } else {
                     setDisable(false);
                 }
-//                 Label name = new Label();
-//                 name.setText(product.getName());
-//                  setGraphic(name);
                 setGraphic(data.getBox());
             } else {
                 setGraphic(null);
@@ -320,6 +280,8 @@ public class HomeController implements Initializable {
         private Label price;
         @FXML
         private Label quantity;
+        @FXML
+        private Label finalPrice;
 
         public Data() {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/product_cell.fxml"));
@@ -335,6 +297,7 @@ public class HomeController implements Initializable {
             name.setText(product.getName());
             price.setText(product.getPrice() + "");
             quantity.setText(product.getQuantity() + "");
+            finalPrice.setText(product.getFinalPrice()+"");
 
         }
 
@@ -366,7 +329,6 @@ public class HomeController implements Initializable {
 
         dialog.getDialogPane().setContent(grid);
 
-// Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(new Callback<ButtonType, Pair<String, String>>() {
             @Override
             public Pair<String, String> call(ButtonType dialogButton) {

@@ -2,8 +2,6 @@ com\mycompany\sms\HistoryController$3.class
 com\mycompany\sms\HistoryController$Data.class
 com\mycompany\sms\HistoryController$1.class
 com\mycompany\sms\EditProductController$ListViewCell.class
-com\mycompany\sms\EditProductController$5.class
-com\mycompany\sms\AddProductController$4.class
 com\mycompany\sms\HomeController$3.class
 com\mycompany\sms\EditProductController$1.class
 helpers\DatabaseConn.class
@@ -16,7 +14,6 @@ com\mycompany\sms\EditProductController$4.class
 com\mycompany\sms\HistoryController$2.class
 com\mycompany\sms\HomeController$4.class
 com\mycompany\sms\HomeController$ListViewCell.class
-com\mycompany\sms\HomeController$6.class
 com\mycompany\sms\AddProductController$3.class
 com\mycompany\sms\HistoryController.class
 helpers\UserHolder.class
@@ -31,5 +28,4 @@ com\mycompany\sms\EditProductController$2.class
 com\mycompany\sms\EditProductController$Data.class
 com\mycompany\sms\HomeController$Data.class
 helpers\StageHolder.class
-com\mycompany\sms\HomeController$5.class
 com\mycompany\sms\HomeController.class

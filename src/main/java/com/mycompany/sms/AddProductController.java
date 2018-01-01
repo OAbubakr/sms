@@ -14,8 +14,6 @@ import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +43,8 @@ public class AddProductController implements Initializable {
     @FXML
     private TextField price;
     @FXML
+    private TextField finalPrice;
+    @FXML
     private TextField quantity;
     @FXML
     private TextArea notes;
@@ -56,56 +56,33 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        final Pattern doublePattern = Pattern.compile("\\d*|\\d+\\.\\d*");
-        final Pattern intPattern = Pattern.compile("\\d*");
+        final Pattern doublePattern = Pattern.compile("\\d{0,6}|\\d{0,6}\\.\\d{0,2}");
+        final Pattern intPattern = Pattern.compile("\\d{0,6}");
+        
         TextFormatter doublFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 return doublePattern.matcher(change.getControlNewText()).matches() ? change : null;
             }
         });
+        
+         TextFormatter doublFormatter2 = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                return doublePattern.matcher(change.getControlNewText()).matches() ? change : null;
+            }
+        });
+        
         TextFormatter intFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 return intPattern.matcher(change.getControlNewText()).matches() ? change : null;
             }
         });
+        
         price.setTextFormatter(doublFormatter);
+        finalPrice.setTextFormatter(doublFormatter2);
         quantity.setTextFormatter(intFormatter);
-        price.lengthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (price.getText().length() >= 9) {
-
-                        // if it's 11th character then just setText to previous
-                        // one
-                        price.setText(price.getText().substring(0, 9));
-                    }
-                }
-            }
-        });
-
-        quantity.lengthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (quantity.getText().length() >= 6) {
-
-                        // if it's 11th character then just setText to previous
-                        // one
-                        quantity.setText(quantity.getText().substring(0, 6));
-                    }
-                }
-            }
-        });
-
     }
 
     @FXML
@@ -160,6 +137,7 @@ public class AddProductController implements Initializable {
             Product product = new Product();
             product.setName(name.getText());
             product.setPrice(Double.parseDouble(price.getText()));
+            product.setFinalPrice(Double.parseDouble(finalPrice.getText()));
             product.setQuantity(Integer.parseInt(quantity.getText()));
             product.setNotes(notes.getText());
             boolean r = new ProductsDao().insertProduct(product);
@@ -173,7 +151,7 @@ public class AddProductController implements Initializable {
     }
 
     private boolean validate() {
-        return (!name.getText().trim().isEmpty() && !price.getText().trim().isEmpty() && !quantity.getText().trim().isEmpty());
+        return (!name.getText().trim().isEmpty() && !price.getText().trim().isEmpty() && !quantity.getText().trim().isEmpty() && !finalPrice.getText().trim().isEmpty());
     }
 
     private void success() {
@@ -183,6 +161,7 @@ public class AddProductController implements Initializable {
         price.setText("");
         quantity.setText("");
         notes.setText("");
+        finalPrice.setText("");
     }
 
     private void failed() {

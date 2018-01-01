@@ -61,6 +61,8 @@ public class EditProductController implements Initializable {
     @FXML
     private TextField price;
     @FXML
+    private TextField finalPrice;
+    @FXML
     private TextArea notes;
     @FXML
     private Label failed;
@@ -68,62 +70,39 @@ public class EditProductController implements Initializable {
     private Label success_edit;
     @FXML
     private Label success_remove;
-
     Product p;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setListView();
         disableInputs();
-        final Pattern doublePattern = Pattern.compile("\\d*|\\d+\\.\\d*");
-        final Pattern intPattern = Pattern.compile("\\d*");
+        final Pattern doublePattern = Pattern.compile("\\d{0,6}|\\d{0,6}\\.\\d{0,2}");
+        final Pattern intPattern = Pattern.compile("\\d{0,6}");
+        
         TextFormatter doublFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 return doublePattern.matcher(change.getControlNewText()).matches() ? change : null;
             }
         });
+        
+        TextFormatter doublFormatter2 = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                return doublePattern.matcher(change.getControlNewText()).matches() ? change : null;
+            }
+        });
+        
         TextFormatter intFormatter = new TextFormatter(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 return intPattern.matcher(change.getControlNewText()).matches() ? change : null;
             }
         });
+        
         price.setTextFormatter(doublFormatter);
+        finalPrice.setTextFormatter(doublFormatter2);
         quantity.setTextFormatter(intFormatter);
-        price.lengthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (price.getText().length() >= 20) {
-
-                        // if it's 11th character then just setText to previous
-                        // one
-                        price.setText(price.getText().substring(0, 20));
-                    }
-                }
-            }
-        });
-
-        quantity.lengthProperty().addListener(new ChangeListener<Number>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                if (newValue.intValue() > oldValue.intValue()) {
-                    // Check if the new character is greater than LIMIT
-                    if (quantity.getText().length() >= 6) {
-
-                        // if it's 11th character then just setText to previous
-                        // one
-                        quantity.setText(quantity.getText().substring(0, 6));
-                    }
-                }
-            }
-        });
 
     }
 
@@ -179,6 +158,7 @@ public class EditProductController implements Initializable {
             price.setText(p.getPrice() + "");
             quantity.setText(p.getQuantity() + "");
             notes.setText(p.getNotes());
+            finalPrice.setText(p.getFinalPrice()+"");
         }
     }
 
@@ -212,6 +192,7 @@ public class EditProductController implements Initializable {
         price.setText("");
         quantity.setText("");
         notes.setText("");
+        finalPrice.setText("");
 
     }
 
@@ -256,6 +237,7 @@ public class EditProductController implements Initializable {
         quantity.setEditable(true);
         price.setEditable(true);
         notes.setEditable(true);
+        finalPrice.setEditable(true);
     }
 
     private void disableInputs() {
@@ -263,6 +245,7 @@ public class EditProductController implements Initializable {
         quantity.setEditable(false);
         price.setEditable(false);
         notes.setEditable(false);
+        finalPrice.setEditable(false);
     }
 
     private boolean validate() {
@@ -310,6 +293,8 @@ public class EditProductController implements Initializable {
         private Label price;
         @FXML
         private Label quantity;
+        @FXML
+        private Label finalPrice;
 
         public Data() {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/product_cell.fxml"));
@@ -325,6 +310,7 @@ public class EditProductController implements Initializable {
             name.setText(product.getName());
             price.setText(product.getPrice() + "");
             quantity.setText(product.getQuantity() + "");
+            finalPrice.setText(product.getFinalPrice()+"");
 
         }
 

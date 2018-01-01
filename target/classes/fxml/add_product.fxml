@@ -15,33 +15,34 @@
         <URL value="@/styles/add_product.css" />
     </stylesheets>
     <children>
-        <TextField fx:id="name" alignment="CENTER_RIGHT" layoutX="243.0" layoutY="174.0" prefHeight="31.0" prefWidth="422.0" />
-        <TextField fx:id="price" alignment="CENTER_RIGHT" layoutX="243.0" layoutY="220.0" prefHeight="31.0" prefWidth="422.0" />
-        <TextField fx:id="quantity" alignment="CENTER_RIGHT" layoutX="243.0" layoutY="274.0" prefHeight="31.0" prefWidth="422.0" />
-        <TextArea fx:id="notes" layoutX="243.0" layoutY="322.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="422.0" />
-        <Button fx:id="save" layoutX="417.0" layoutY="548.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="42.0" prefWidth="92.0" text="حفظ">
+        <TextField fx:id="name" alignment="CENTER_RIGHT" layoutX="241.0" layoutY="146.0" prefHeight="31.0" prefWidth="422.0" />
+        <TextField fx:id="price" alignment="CENTER_RIGHT" layoutX="241.0" layoutY="192.0" prefHeight="31.0" prefWidth="422.0" />
+      <TextField fx:id="finalPrice" alignment="CENTER_RIGHT" layoutX="241.0" layoutY="233.0" prefHeight="31.0" prefWidth="422.0" />
+        <TextField fx:id="quantity" alignment="CENTER_RIGHT" layoutX="241.0" layoutY="275.0" prefHeight="31.0" prefWidth="422.0" />
+        <TextArea fx:id="notes" layoutX="241.0" layoutY="323.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="422.0" />
+        <Button fx:id="save" layoutX="415.0" layoutY="549.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="42.0" prefWidth="92.0" text="حفظ">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Label fx:id="success" layoutX="402.0" layoutY="527.0" prefHeight="17.0" prefWidth="123.0" text="تم حفظ المنتج بنجاح!" textFill="BLUE" visible="false" />
-        <Label fx:id="failed" alignment="CENTER" layoutX="303.0" layoutY="527.0" prefHeight="17.0" prefWidth="302.0" text="برجاء ادخال كافة البيانات المطلوبة" textAlignment="CENTER" textFill="RED" visible="false" />
-        <Label alignment="CENTER" layoutX="680.0" layoutY="273.0" prefHeight="31.0" prefWidth="92.0" text="الكمية" textAlignment="CENTER">
+        <Label fx:id="success" layoutX="400.0" layoutY="499.0" prefHeight="17.0" prefWidth="123.0" text="تم حفظ المنتج بنجاح!" textFill="BLUE" visible="false" />
+        <Label fx:id="failed" alignment="CENTER" layoutX="301.0" layoutY="499.0" prefHeight="17.0" prefWidth="302.0" text="برجاء ادخال كافة البيانات المطلوبة" textAlignment="CENTER" textFill="RED" visible="false" />
+        <Label layoutX="678.0" layoutY="274.0" prefHeight="31.0" prefWidth="92.0" text="الكمية" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutX="680.0" layoutY="220.0" prefHeight="31.0" prefWidth="92.0" text="السعر" textAlignment="CENTER">
+        <Label layoutX="678.0" layoutY="192.0" prefHeight="31.0" prefWidth="92.0" text="السعر" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutX="676.0" layoutY="174.0" prefHeight="31.0" prefWidth="92.0" text="اسم المنتج" textAlignment="CENTER">
+        <Label layoutX="674.0" layoutY="146.0" prefHeight="31.0" prefWidth="92.0" text="اسم المنتج" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" layoutX="680.0" layoutY="322.0" prefHeight="31.0" prefWidth="92.0" text="ملاحظات" textAlignment="CENTER">
+        <Label layoutX="678.0" layoutY="323.0" prefHeight="31.0" prefWidth="92.0" text="ملاحظات" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
@@ -79,5 +80,10 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
+      <Label layoutX="678.0" layoutY="233.0" prefHeight="31.0" prefWidth="106.0" text="السعر النهائي" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

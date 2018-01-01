@@ -31,6 +31,7 @@ public class ProductsDao {
                 p.setPrice(rs.getDouble("price"));
                 p.setQuantity(rs.getInt("quantity"));
                 p.setNotes(rs.getString("notes"));
+                p.setFinalPrice(rs.getDouble("final_price"));
                 prodList.add(p);
             }
         } catch (SQLException e) {
@@ -43,11 +44,12 @@ public class ProductsDao {
         boolean r = false;
 
         try {
-            DatabaseConn.conn.createStatement().execute("insert into products(name, price, quantity, notes)"
+            DatabaseConn.conn.createStatement().execute("insert into products(name, price, quantity, notes, final_price)"
                     + " values('" + product.getName() + "', "
                     + "'" + product.getPrice() + "', "
                     + "'" + product.getQuantity() + "', "
-                    + "'" + product.getNotes() + "');");
+                    + "'" + product.getNotes() + "',"
+                    + "'" + product.getFinalPrice() + "');");
             r = true;
         } catch (SQLException ex) {
             Logger.getLogger(ProductsDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,8 +106,9 @@ public class ProductsDao {
             DatabaseConn.conn.createStatement().execute("update products set"
                     + " name = '" + product.getName() + "',"
                     + " price = " + product.getPrice() + ","
-                    + " quantity = " + product.getQuantity() + ", "
-                    + " notes = '" + product.getNotes() + "'"
+                    + " quantity = " + product.getQuantity() + ","
+                    + " notes = '" + product.getNotes() + "',"
+                    + " final_price = " + product.getFinalPrice()
                     + " where id = " + product.getId());
             r = true;
         } catch (SQLException ex) {
@@ -120,7 +123,7 @@ public class ProductsDao {
         boolean r = false;
         try {
             DatabaseConn.conn.createStatement().execute("update products set"
-                    + " active = 'false'" 
+                    + " active = 'false'"
                     + " where id = " + p.getId());
             r = true;
         } catch (SQLException ex) {

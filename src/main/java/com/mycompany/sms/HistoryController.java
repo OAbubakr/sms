@@ -10,9 +10,12 @@ import helpers.StageHolder;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -56,6 +59,9 @@ public class HistoryController implements Initializable {
 
     @FXML
     private DatePicker to;
+
+    @FXML
+    private Label total;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -132,8 +138,6 @@ public class HistoryController implements Initializable {
             cal.set(Calendar.MINUTE, 59);
             cal.set(Calendar.SECOND, 59);
             long toLong = cal.getTimeInMillis();
-            System.out.println(fromLong);
-            System.out.println(toLong);
             setListView(fromLong, toLong);
         }
     }
@@ -153,15 +157,6 @@ public class HistoryController implements Initializable {
 
     @FXML
     private void goToHistory(MouseEvent event) {
-//           try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/history.fxml"));
-//            Scene scene = new Scene(root);
-//            scene.getStylesheets().add("/styles/history.css");
-//            Stage stage = StageHolder.getStag();
-//            stage.setScene(scene);
-//        } catch (IOException ex) {
-//            Logger.getLogger(HistoryController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     @FXML
@@ -191,8 +186,9 @@ public class HistoryController implements Initializable {
     }
 
     public void setListView(long from, long to) {
-
-        observableList.setAll(new ProductsDao().getTransacrions(from, to));
+        ArrayList<Transaction> result = new ProductsDao().getTransacrions(from, to);
+        setTotal(result);
+        observableList.setAll(result);
 
         productsList.setItems(observableList);
 
@@ -204,6 +200,15 @@ public class HistoryController implements Initializable {
                 return new ListViewCell();
             }
         });
+    }
+
+    private void setTotal(ArrayList<Transaction> result) {
+        double total = 0.0;
+        for (Transaction trans : result) {
+            total += trans.getSellingPrice() * trans.getQuantity();
+        }
+        DecimalFormat df = new DecimalFormat("#######.##");
+        this.total.setText(df.format(total));
     }
 
     private static class ListViewCell extends ListCell<Transaction> {
@@ -252,7 +257,8 @@ public class HistoryController implements Initializable {
             name.setText(transaction.getProduct().getName());
             sellPrice.setText(transaction.getSellingPrice() + "");
             quantity.setText(transaction.getQuantity() + "");
-            total.setText(transaction.getSellingPrice() * transaction.getQuantity() + "" );
+            DecimalFormat def = new DecimalFormat("#######.##");
+            total.setText(def.format(transaction.getSellingPrice() * transaction.getQuantity()));
             Date d = new Date(transaction.getDate());
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy h:mm a");
             String reportDate = df.format(d);

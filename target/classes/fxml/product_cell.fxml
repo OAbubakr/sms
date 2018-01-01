@@ -3,10 +3,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="hBox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="256.0" minHeight="-Infinity" minWidth="350.0" prefHeight="37.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hBox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="700.0" minHeight="-Infinity" minWidth="700.0" prefHeight="37.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="name" contentDisplay="RIGHT" minWidth="250.0" prefHeight="37.0" prefWidth="233.0" textAlignment="RIGHT" />
-      <Label fx:id="price" alignment="CENTER" minWidth="50.0" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
-      <Label fx:id="quantity" alignment="CENTER" minWidth="50.0" prefHeight="75.0" prefWidth="155.0" textAlignment="RIGHT" />
+      <Label fx:id="name" contentDisplay="RIGHT" maxWidth="450.0" minWidth="400.0" prefHeight="37.0" prefWidth="450.0" textAlignment="RIGHT" />
+      <Label fx:id="price" alignment="CENTER" maxWidth="100.0" minWidth="100.0" prefHeight="75.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="finalPrice" alignment="CENTER" maxWidth="100.0" minWidth="100.0" prefHeight="75.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="quantity" contentDisplay="RIGHT" maxWidth="100.0" minWidth="100.0" prefHeight="37.0" prefWidth="100.0" textAlignment="RIGHT" />
    </children>
 </HBox>
